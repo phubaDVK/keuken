@@ -4,6 +4,7 @@ import be.vdab.keuken.domain.Artikel;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,5 +30,11 @@ class JpaArtikelRepository implements ArtikelRepository{
     public List<Artikel> findByNaamContains(String woord) {
         return manager.createNamedQuery("Artikel.findByNaamContains", Artikel.class)
                 .setParameter("zoals", "%" + woord + "%").getResultList();
+    }
+
+    @Override
+    public int algemenePrijsVerhoging(BigDecimal percentage) {
+        return manager.createNamedQuery("Artikel.algemenePrijsVerhoging").setParameter("percentage", percentage)
+                .executeUpdate();
     }
 }

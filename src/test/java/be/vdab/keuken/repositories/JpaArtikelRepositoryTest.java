@@ -60,4 +60,9 @@ class JpaArtikelRepositoryTest extends AbstractTransactionalJUnit4SpringContextT
                 .isSortedAccordingTo(String::compareToIgnoreCase);
     }
 
+    @Test
+    void algemenePrijsVerhoging(){
+        assertThat(repository.algemenePrijsVerhoging(BigDecimal.TEN)).isEqualTo(countRowsInTable(ARTIKELS));
+        assertThat(countRowsInTableWhere(ARTIKELS, "verkoopprijs = 132 and id = " + idVanTestArt())).isOne();
+    }
 }
