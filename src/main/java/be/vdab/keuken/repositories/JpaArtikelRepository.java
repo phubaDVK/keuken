@@ -1,4 +1,4 @@
-package be.vdab.keuken.repository;
+package be.vdab.keuken.repositories;
 
 import be.vdab.keuken.domain.Artikel;
 import org.springframework.stereotype.Repository;
@@ -17,5 +17,10 @@ class JpaArtikelRepository implements ArtikelRepository{
     @Override
     public Optional<Artikel> findById(long id) {
         return Optional.ofNullable(manager.find(Artikel.class, id));
+    }
+
+    @Override
+    public void create(Artikel artikel) {
+        manager.persist(artikel);
     }
 }
