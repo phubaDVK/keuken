@@ -28,7 +28,9 @@ public class DefaultArtikelServiceIntergrationTest extends AbstractTransactional
     }
 
     private long idVanTestArtikel() {
-        return jdbcTemplate.queryForObject("select id from artikels where naam = 'test'", Long.class);
+        return jdbcTemplate.queryForObject(
+                "select id from artikels where naam='testfood'", Long.class);
+
     }
 
     @Test

@@ -10,9 +10,11 @@ import static org.assertj.core.api.Assertions.*;
 class ArtikelTest {
     private Artikel artikel;
 
+
     @BeforeEach
     void beforeEach(){
-        artikel = new Artikel("test", BigDecimal.ONE, BigDecimal.TEN);
+        artikel = artikel = new FoodArtikel("test", BigDecimal.ONE, BigDecimal.TEN, 1);
+
     }
 
     @Test
