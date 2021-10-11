@@ -1,2 +1,1 @@
-insert into artikels(naam, aankoopprijs, verkoopprijs) values
-    ('testA', 1000, 1500);
+insert into artikels(naam, aankoopprijs, verkoopprijs) values('test', 100, 120);

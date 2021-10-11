@@ -25,7 +25,7 @@ class JpaArtikelRepositoryTest extends AbstractTransactionalJUnit4SpringContextT
     }
 
     private long idVanTestArt() {
-        return jdbcTemplate.queryForObject("select id from artikels where naam = 'testA'", Long.class);
+        return jdbcTemplate.queryForObject("select id from artikels where naam = 'test'", Long.class);
 
     }
 
@@ -36,7 +36,7 @@ class JpaArtikelRepositoryTest extends AbstractTransactionalJUnit4SpringContextT
 
     @Test
     void findById() {
-        assertThat(repository.findById(idVanTestArt())).hasValueSatisfying(artikel -> assertThat(artikel.getNaam()).isEqualTo("testA"));
+        assertThat(repository.findById(idVanTestArt())).hasValueSatisfying(artikel -> assertThat(artikel.getNaam()).isEqualTo("test"));
     }
 
     @Test
