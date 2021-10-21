@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -24,12 +25,15 @@ public abstract class Artikel {
             joinColumns = @JoinColumn(name = "artikelId"))
     private Set<Korting> kortingen;
 
-    public Artikel(String naam, BigDecimal aankoopprijs, BigDecimal verkoopprijs) {
+    public Artikel(String naam, BigDecimal aankoopprijs, BigDecimal verkoopprijs,
+                   ArtikelGroep artikelGroep) {
         this.naam = naam;
         this.aankoopprijs = aankoopprijs;
         this.verkoopprijs = verkoopprijs;
         this.kortingen = new LinkedHashSet<>();
+        setArtikelGroep(artikelGroep);
     }
+
 
     protected Artikel() {
 
@@ -62,4 +66,29 @@ public abstract class Artikel {
         return Collections.unmodifiableSet(kortingen);
     }
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "artikelgroepId")
+    private ArtikelGroep artikelGroep;
+    public ArtikelGroep getArtikelGroep() {
+        return artikelGroep;
+    }
+    public void setArtikelGroep(ArtikelGroep artikelGroep) {
+        if (!artikelGroep.getArtikels().contains(this)) {
+            artikelGroep.add(this);
+        }
+        this.artikelGroep = artikelGroep;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Artikel)) return false;
+        Artikel artikel = (Artikel) o;
+        return Objects.equals(naam, artikel.naam);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(naam);
+    }
 }
