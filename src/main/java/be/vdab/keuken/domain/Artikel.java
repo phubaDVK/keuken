@@ -11,6 +11,8 @@ import java.util.Set;
 @Table(name = "artikels")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "soort")
+@NamedEntityGraph(name = Artikel.MET_ARTIKELGROEP,
+        attributeNodes = @NamedAttributeNode("artikelGroep"))
 public abstract class Artikel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +20,7 @@ public abstract class Artikel {
     private String naam;
     private BigDecimal aankoopprijs;
     private BigDecimal verkoopprijs;
+    public static final String MET_ARTIKELGROEP = "Artikel.metArtikelGroep";
 
     @ElementCollection
     @OrderBy("vanafAantal")
